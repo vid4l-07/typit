@@ -8,7 +8,11 @@ int main(){
 	Player player;
 	Render render(oldt);
 	
-	Game game(player, render);
+	char mode;
+	std::cout << "Modo: ";
+	std::cin >> mode;
+
+	Game game(player, render, mode);
 
 	game.start();
     game.end();

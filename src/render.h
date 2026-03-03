@@ -12,6 +12,7 @@ class Render{
 	termios oldt;
 
 	public:
+	int max_words;
 	Render(termios term_param): oldt(term_param) { get_center(); }
 
 	void enable_raw_mode();
