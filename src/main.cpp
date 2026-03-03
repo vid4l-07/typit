@@ -1,4 +1,3 @@
-#include <iostream>
 #include <termios.h>
 #include "player.h"
 #include "game.h"

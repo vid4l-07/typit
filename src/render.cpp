@@ -26,7 +26,18 @@ void Render::update(const Player& player){
 	center(filas, columnas);
 	std::cout << player.rest_str; 
 	center(filas, columnas - player.player_input.size());
-	std::cout << player.dump_input();
+	
+	std::string format_str;
+	for (const auto& i:player.player_input){
+		std::string s(1,i.c);
+
+		if (i.format){
+			format_str += "\033[32m" + s + "\033[0m";
+		} else{
+			format_str += "\033[31m" + s + "\033[0m";
+		}
+	}
+	std::cout << format_str;
 	center(filas, columnas);
 }
 
