@@ -27,6 +27,7 @@ class Game{
 	void end();
 	void set_start_time();
 	double get_time() const;
+	double get_wpm();
 };
 
 #endif

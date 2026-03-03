@@ -17,8 +17,9 @@ class Player{
 	int words_typed;
 	int errors;
 	int index;
+	int consecutive_dels;
 
-	Player(): errors(0), words_typed(0), index(0) {
+	Player(): errors(0), words_typed(0), index(0), consecutive_dels(0) {
 		gen_word(true);
 	}
 

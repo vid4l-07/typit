@@ -11,7 +11,6 @@ int main(){
 	char mode;
 	std::cout << "Modo: ";
 	std::cin >> mode;
-
 	Game game(player, render, mode);
 
 	game.start();

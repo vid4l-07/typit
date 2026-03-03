@@ -30,9 +30,11 @@ void Render::new_words(Player& player){
 	}
 }
 
-void Render::stats(int time){
-	center(filas - 10, columnas - 20);
+void Render::stats(int time, int wpm){
+	center(filas - filas / 2, columnas - columnas / 3);
 	std::cout << time;
+	center(filas - filas / 2, columnas + columnas / 3);
+	std::cout << "wpm: " << wpm;
 }
 
 void Render::update(Player& player){
@@ -65,6 +67,7 @@ void Render::enable_raw_mode() {
 	newt = oldt;
 	newt.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+	std::cout << "\033[?25l"; // hide cursor
 }
 
 void Render::disable_raw_mode() {

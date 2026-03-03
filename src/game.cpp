@@ -27,7 +27,6 @@ bool Game::key_pressed() {
 void Game::start() {
 	render.enable_raw_mode();
 	render.clear();
-	std::cout << "\033[?25l"; // hide cursor
 	if (mode == 'w'){
 		render.max_words = 15;
 		render.update(player);
@@ -40,13 +39,19 @@ void Game::start() {
 }
 
 void Game::end() {
+	render.clear();
 	render.disable_raw_mode();
 	double accuracy = (double(player.org_str.size()) - player.errors) / double(player.org_str.size()) * 100;
 	std::cout << "\n\n";
 	std::cout << "Tiempo: " << duration << " segundos\n";
 	std::cout << "Palabras: " << player.words_typed << "\n";
+	std::cout << "WPM: " << get_wpm() << " \n";
 	std::cout << "Precision: " << accuracy << " %\n";
 	std::cout << "Errores: " << player.errors << " errores\n";
+}
+
+double Game::get_wpm(){
+	return player.words_typed / (get_time() / 60);
 }
 
 void Game::handle_input(char c){
@@ -70,7 +75,7 @@ void Game::main_loop_words(){
 			handle_input(c);
 			render.update(player);
 		}
-		render.stats(get_time());
+		render.stats(get_time(), get_wpm());
 	}
 	duration = get_time();
 	usleep(16000); // ~60 FPS
@@ -85,7 +90,7 @@ void Game::main_loop_time(){
 			handle_input(c);
 			render.update(player);
 		}
-		render.stats(10 - get_time());
+		render.stats(10 - get_time(), get_wpm());
 	}
 	duration = get_time();
 }

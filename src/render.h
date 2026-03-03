@@ -22,7 +22,7 @@ class Render{
 	void center(int filas, int columnas);
 	void clear();
 	void new_words(Player& player);
-	void stats(int time);
+	void stats(int time, int wpm);
 	void update(Player& player);
 };
 

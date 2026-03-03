@@ -17,13 +17,18 @@ void Player::type(char c, bool correct){
 	index ++;
 	player_input.push_back(typedchar);
 	rest_str.erase(0,1);
+
+	if (consecutive_dels > 0){
+		consecutive_dels --;
+	}
 }
 
 void Player::backspace(){
-	if (index > 0){
+	if (index > 0 && consecutive_dels < 5){
 		index --;
 		player_input.pop_back();
 		rest_str.insert(rest_str.begin(), org_str[index]);
+		consecutive_dels ++;
 	}
 }
 
