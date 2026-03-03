@@ -9,11 +9,12 @@ class Render{
 	private:
 	int filas;
 	int columnas;
+	int words_gen;
 	termios oldt;
 
 	public:
 	int max_words;
-	Render(termios term_param): oldt(term_param) { get_center(); }
+	Render(termios term_param): oldt(term_param), words_gen(0) { get_center(); }
 
 	void enable_raw_mode();
 	void disable_raw_mode();
@@ -21,6 +22,7 @@ class Render{
 	void center(int filas, int columnas);
 	void clear();
 	void new_words(Player& player);
+	void stats(int time);
 	void update(Player& player);
 };
 

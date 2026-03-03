@@ -22,6 +22,7 @@ class Game{
 
 	void start(); // w = words, t = time
 	void end();
+	bool key_pressed();
 	void set_start_time();
 	double get_time() const;
 };

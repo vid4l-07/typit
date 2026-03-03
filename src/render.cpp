@@ -21,20 +21,28 @@ void Render::center(int filas, int columnas){
 }
 
 void Render::new_words(Player& player){
-	while (player.rest_str.size() < columnas - 10 && player.words < 10){
+	while (player.rest_str.size() < columnas - 10 && words_gen < max_words){
 		player.gen_word();
+		words_gen ++;
 	}
-
 	if (player.player_input.size() >= columnas - 5){
 		player.del_char();
 	}
+}
+
+void Render::stats(int time){
+	center(filas - 10, columnas - 20);
+	std::cout << time;
 }
 
 void Render::update(Player& player){
 	clear();
 	center(filas, columnas);
 	new_words(player);
-	std::cout << player.rest_str; 
+	std::string copy_str = player.rest_str;
+	if (!player.rest_str.empty()) {
+		std::cout << "\033[100;38;5;232m" << player.rest_str.front() << "\033[0m" << player.rest_str.substr(1);
+	}
 	center(filas, columnas - player.player_input.size());
 	
 	std::string format_str;

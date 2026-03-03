@@ -1,4 +1,7 @@
 #include <chrono>
+#include <sys/select.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include "render.h"
 #include "player.h"
 #include "Game.h"
@@ -12,9 +15,19 @@ double Game::get_time() const{
 	return tiempo.count();
 }
 
+bool Game::key_pressed() {
+    timeval tv = {0, 0}; 
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);
+    select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+    return FD_ISSET(STDIN_FILENO, &fds);
+}
+
 void Game::start() {
 	render.enable_raw_mode();
 	render.clear();
+	std::cout << "\033[?25l"; // hide cursor
 	if (mode == 'w'){
 		render.max_words = 15;
 		render.update(player);
@@ -30,11 +43,8 @@ void Game::end() {
 	render.disable_raw_mode();
 	double accuracy = (double(player.org_str.size()) - player.errors) / double(player.org_str.size()) * 100;
 	std::cout << "\n\n";
-	if (mode == 'w'){
-		std::cout << "Tiempo: " << duration << " segundos\n";
-	} else {
-		std::cout << "Palabras: " << player.words << "\n";
-	}
+	std::cout << "Tiempo: " << duration << " segundos\n";
+	std::cout << "Palabras: " << player.words_typed << "\n";
 	std::cout << "Precision: " << accuracy << " %\n";
 	std::cout << "Errores: " << player.errors << " errores\n";
 }
@@ -44,53 +54,57 @@ void Game::main_loop_words(){
 
 	set_start_time();
 	while (index < player.org_str.size()) {
-		char c = getchar();
+		if (key_pressed()){
+			char c = getchar();
 
-		if (c < 32) continue;
-		if (c == 127){
-			if (index > 0){
-				index --;
-				player.backspace(index);
+			if (c < 32) continue;
+			if (c == 127){
+				if (index > 0){
+					index --;
+					player.backspace(index);
+				}
+			} else if (c == player.rest_str[0]){
+				player.type(c, true);
+				index ++;
+
+			} else{
+				player.type(c, false);
+				index ++;
 			}
-
-		} else if (c == player.rest_str[0]){
-			player.type(c, true);
-			index ++;
-
-		} else{
-			player.type(c, false);
-			index ++;
-
+			render.update(player);
 		}
-		render.update(player);
+		render.stats(get_time());
 	}
 	duration = get_time();
+	usleep(16000); // ~60 FPS
 }
 
 void Game::main_loop_time(){
 	int index = 0;
-
 	set_start_time();
 	while (get_time() < 10) {
-		char c = getchar();
+		if (key_pressed()){
+			char c = getchar();
+			if (c < 32) continue;
+			if (c == ' ') player.words_typed ++;
+			if (c == 127){
+				if (index > 0){
+					index --;
+					player.backspace(index);
+				}
 
-		if (c < 32) continue;
-		if (c == 127){
-			if (index > 0){
-				index --;
-				player.backspace(index);
+			} else if (c == player.rest_str[0]){
+				player.type(c, true);
+				index ++;
+
+			} else{
+				player.type(c, false);
+				index ++;
+
 			}
-
-		} else if (c == player.rest_str[0]){
-			player.type(c, true);
-			index ++;
-
-		} else{
-			player.type(c, false);
-			index ++;
-
+			render.update(player);
 		}
-		render.update(player);
+		render.stats(10 - get_time());
 	}
 	duration = get_time();
 }

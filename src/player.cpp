@@ -39,7 +39,6 @@ void Player::gen_word(bool first){
 	}
 	rest_str.append(word);
 	org_str.append(word);
-	words ++;
 }
 
 void Player::del_char(){
