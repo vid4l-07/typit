@@ -1,6 +1,5 @@
 #include <csignal>
 #include <string>
-#include <termios.h>
 #include "player.h"
 #include "game.h"
 #include "render.h"
@@ -20,7 +19,6 @@ int main(){
 	std::cout << "Idioma: ";
 	std::cin >> len;
 
-    termios oldt;
 	Player player(len);
 	Render render;
 

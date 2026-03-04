@@ -1,7 +1,4 @@
 #include <chrono>
-#include <sys/select.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include "render.h"
 #include "player.h"
 #include "Game.h"
@@ -34,7 +31,7 @@ void Game::end() {
 	render.clear();
 	double accuracy = (double(player.org_str.size()) - player.errors) / double(player.org_str.size()) * 100;
 	std::cout << "\n\n";
-	std::cout << "Tiempo: " << duration << " segundos\n";
+	std::cout << "Tiempo: " << get_time() << " segundos\n";
 	std::cout << "Palabras: " << player.words_typed << "\n";
 	std::cout << "WPM: " << get_wpm() << " \n";
 	std::cout << "Precision: " << accuracy << " %\n";
@@ -42,22 +39,14 @@ void Game::end() {
 }
 
 double Game::get_wpm(){
-	return player.words_typed / (get_time() / 60);
-}
+	double elapsed_minutes = get_time() / 60.0;
 
-bool Game::key_pressed() {
-    timeval tv; 
-	tv.tv_sec = 0;
-	tv.tv_usec = 5000;
-    fd_set fds;
-    FD_ZERO(&fds);
-    FD_SET(STDIN_FILENO, &fds);
-    // select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
-	int ret = select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+    if (elapsed_minutes <= 0.0001)
+        return 0;
 
-    if (ret == -1)
-		return false;
-    return FD_ISSET(STDIN_FILENO, &fds);
+    int total_chars = player.player_input.size();
+    double words = total_chars / 5.0;
+    return words / elapsed_minutes;
 }
 
 void Game::handle_input(char c){
@@ -66,7 +55,7 @@ void Game::handle_input(char c){
 
 	if (c == 127){
 		player.backspace();
-	} else if (c == player.rest_str[0]){
+	} else if (!player.rest_str.empty() && c == player.rest_str[0]){
 		player.type(c, true);
 	} else{
 		player.type(c, false);
@@ -76,7 +65,7 @@ void Game::handle_input(char c){
 void Game::main_loop_words(){
 	set_start_time();
 	while (player.index < player.org_str.size()) {
-		if (key_pressed()){
+		if (player.key_pressed()){
 			char c = getchar();
 			handle_input(c);
 			render.update(player);
@@ -91,7 +80,7 @@ void Game::main_loop_time(){
 	set_start_time();
 	while (duration < 10) {
 		duration = get_time();
-		if (key_pressed()){
+		if (player.key_pressed()){
 			char c = getchar();
 			handle_input(c);
 			render.update(player);

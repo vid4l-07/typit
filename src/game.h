@@ -19,7 +19,6 @@ class Game{
 
 	Game(Player& player_param, Render render_param, char mode_param): player(player_param), render(render_param), mode(mode_param) {}
 
-	bool key_pressed();
 	void handle_input(char c);
 	void start(); // w = words, t = time
 	void end();

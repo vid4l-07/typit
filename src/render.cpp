@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include "render.h"
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include "render.h"
 
 void Render::clear(){
 	std::cout << "\033[2J";

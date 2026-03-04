@@ -1,5 +1,4 @@
 #pragma once
-#include <termios.h>
 #include <string>
 #include "player.h"
 
