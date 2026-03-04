@@ -5,6 +5,7 @@
 #include "render.h"
 #include "player.h"
 #include "Game.h"
+#include "term.h"
 
 void Game::set_start_time(){
 	inicio = std::chrono::high_resolution_clock::now();
@@ -15,17 +16,8 @@ double Game::get_time() const{
 	return tiempo.count();
 }
 
-bool Game::key_pressed() {
-    timeval tv = {0, 0}; 
-    fd_set fds;
-    FD_ZERO(&fds);
-    FD_SET(STDIN_FILENO, &fds);
-    select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
-    return FD_ISSET(STDIN_FILENO, &fds);
-}
-
 void Game::start() {
-	render.enable_raw_mode();
+	Terminal term;
 	render.clear();
 	if (mode == 'w'){
 		render.max_words = 15;
@@ -40,7 +32,6 @@ void Game::start() {
 
 void Game::end() {
 	render.clear();
-	render.disable_raw_mode();
 	double accuracy = (double(player.org_str.size()) - player.errors) / double(player.org_str.size()) * 100;
 	std::cout << "\n\n";
 	std::cout << "Tiempo: " << duration << " segundos\n";
@@ -52,6 +43,21 @@ void Game::end() {
 
 double Game::get_wpm(){
 	return player.words_typed / (get_time() / 60);
+}
+
+bool Game::key_pressed() {
+    timeval tv; 
+	tv.tv_sec = 0;
+	tv.tv_usec = 5000;
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);
+    // select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+	int ret = select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+
+    if (ret == -1)
+		return false;
+    return FD_ISSET(STDIN_FILENO, &fds);
 }
 
 void Game::handle_input(char c){

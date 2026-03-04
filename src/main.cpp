@@ -22,7 +22,7 @@ int main(){
 
     termios oldt;
 	Player player(len);
-	Render render(oldt);
+	Render render;
 
 	Game game(player, render, mode);
 

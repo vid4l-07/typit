@@ -1,9 +1,8 @@
 #include <iostream>
-#include <termios.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
 #include <string>
 #include "render.h"
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 void Render::clear(){
 	std::cout << "\033[2J";
@@ -62,15 +61,3 @@ void Render::update(Player& player){
 	center(filas, columnas);
 }
 
-void Render::enable_raw_mode() {
-	termios newt;
-	tcgetattr(STDIN_FILENO, &oldt);
-	newt = oldt;
-	newt.c_lflag &= ~(ICANON | ECHO);
-	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-	std::cout << "\033[?25l"; // hide cursor
-}
-
-void Render::disable_raw_mode() {
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-}

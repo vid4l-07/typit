@@ -8,14 +8,11 @@ class Render{
 	int filas;
 	int columnas;
 	int words_gen;
-	termios oldt;
 
 	public:
 	int max_words;
-	Render(termios term_param): oldt(term_param), words_gen(0) { get_center(); }
+	Render():  words_gen(0) { get_center(); }
 
-	void enable_raw_mode();
-	void disable_raw_mode();
 	void get_center();
 	void center(int filas, int columnas);
 	void clear();
