@@ -27,7 +27,6 @@ class Player{
 
 	void type(char c, bool correct);
 	void backspace();
-	bool key_pressed();
 	void count_words();
 	void gen_word(bool first = false);
 	void del_char();

@@ -6,8 +6,9 @@
 
 class Game{
 	private:
-	Player player;
-	Render render;
+	Terminal& term;
+	Player& player;
+	Render& render;
 	char mode;
 	std::chrono::time_point<std::chrono::high_resolution_clock> inicio;
 
@@ -17,7 +18,8 @@ class Game{
 	public:
 	double duration;
 
-	Game(Player& player_param, Render render_param, char mode_param): player(player_param), render(render_param), mode(mode_param) {}
+	Game(Player& player_param, Render& render_param, Terminal& term_param, char mode_param): player(player_param), render(render_param),
+	term(term_param), mode(mode_param) {}
 
 	void handle_input(char c);
 	void start(); // w = words, t = time

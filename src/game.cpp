@@ -13,8 +13,59 @@ double Game::get_time() const{
 	return tiempo.count();
 }
 
+
+double Game::get_wpm(){
+	double elapsed_minutes = get_time() / 60.0;
+
+    if (elapsed_minutes <= 0.0001)
+        return 0;
+
+    int total_chars = player.player_input.size();
+    double words = total_chars / 5.0;
+    return words / elapsed_minutes;
+}
+
+void Game::handle_input(char c){
+	if (c < 32) return;
+	if (c == ' ') player.words_typed ++;
+
+	if (c == KEY_BACKSPACE){
+		player.backspace();
+	} else if (!player.rest_str.empty() && c == player.rest_str[0]){
+		player.type(c, true);
+	} else{
+		player.type(c, false);
+	}
+}
+
+void Game::main_loop_words(){
+	set_start_time();
+	while (player.index < player.org_str.size()) {
+		if (term.key_pressed()){
+			char c = term.read_char();
+			handle_input(c);
+			render.update(player);
+		}
+		render.stats(get_time(), get_wpm());
+	}
+	duration = get_time();
+}
+
+void Game::main_loop_time(){
+	int index = 0;
+	set_start_time();
+	while (duration < 10) {
+		duration = get_time();
+		if (term.key_pressed()){
+			char c = term.read_char();
+			handle_input(c);
+			render.update(player);
+		}
+		render.stats(10 - get_time(), get_wpm());
+	}
+}
+
 void Game::start() {
-	Terminal term;
 	render.clear();
 	if (mode == 'w'){
 		render.max_words = 15;
@@ -36,55 +87,4 @@ void Game::end() {
 	std::cout << "WPM: " << get_wpm() << " \n";
 	std::cout << "Precision: " << accuracy << " %\n";
 	std::cout << "Errores: " << player.errors << " errores\n";
-}
-
-double Game::get_wpm(){
-	double elapsed_minutes = get_time() / 60.0;
-
-    if (elapsed_minutes <= 0.0001)
-        return 0;
-
-    int total_chars = player.player_input.size();
-    double words = total_chars / 5.0;
-    return words / elapsed_minutes;
-}
-
-void Game::handle_input(char c){
-	if (c < 32) return;
-	if (c == ' ') player.words_typed ++;
-
-	if (c == 127){
-		player.backspace();
-	} else if (!player.rest_str.empty() && c == player.rest_str[0]){
-		player.type(c, true);
-	} else{
-		player.type(c, false);
-	}
-}
-
-void Game::main_loop_words(){
-	set_start_time();
-	while (player.index < player.org_str.size()) {
-		if (player.key_pressed()){
-			char c = getchar();
-			handle_input(c);
-			render.update(player);
-		}
-		render.stats(get_time(), get_wpm());
-	}
-	duration = get_time();
-}
-
-void Game::main_loop_time(){
-	int index = 0;
-	set_start_time();
-	while (duration < 10) {
-		duration = get_time();
-		if (player.key_pressed()){
-			char c = getchar();
-			handle_input(c);
-			render.update(player);
-		}
-		render.stats(10 - get_time(), get_wpm());
-	}
 }

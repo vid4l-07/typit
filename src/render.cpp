@@ -1,18 +1,10 @@
 #include <iostream>
 #include <string>
-#include <sys/ioctl.h>
-#include <unistd.h>
 #include "render.h"
 
 void Render::clear(){
 	std::cout << "\033[2J";
-}
-
-void Render::get_center() {
-	struct winsize w;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	filas = w.ws_row / 2;
-	columnas = w.ws_col / 2;
+	std::cout << "\033[?25l"; // hide cursor
 }
 
 void Render::center(int filas, int columnas){
