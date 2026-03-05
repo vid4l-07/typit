@@ -7,7 +7,7 @@ void Menu_render::center(int rows, int columns){
 }
 
 void Menu_render::draw_options(const std::vector<Option>& options){
-	int padding_top = 8;
+	int padding_top = rows * 0.2;
 	int padding_col = 5;
 	int padding_row = 5;
 
@@ -21,7 +21,7 @@ void Menu_render::draw_options(const std::vector<Option>& options){
 	}
 
 	int options_start_col = start_col;
-	int options_start_row = title_row + padding_top;
+	int options_start_row = title_line + padding_top;
 	int space = (col_size - (padding_col * 2)) / (number_options + 1);
 
 	options_start_col += padding_col;
@@ -45,7 +45,7 @@ void Menu_render::draw_options(const std::vector<Option>& options){
 }
 
 void Menu_render::draw_number(int selection){
-	int padding_top = 5;
+	int padding_top = rows * 0.2;
 	center(title_line + padding_top, columns);
 	std::cout << selection;
 }

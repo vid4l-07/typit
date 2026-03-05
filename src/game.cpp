@@ -1,4 +1,5 @@
 #include <chrono>
+#include <iostream>
 #include "render.h"
 #include "player.h"
 #include "Game.h"
@@ -81,10 +82,6 @@ void Game::start() {
 void Game::end() {
 	term.clear();
 	double accuracy = (double(player.org_str.size()) - player.errors) / double(player.org_str.size()) * 100;
-	std::cout << "\n\n";
-	std::cout << "Tiempo: " << get_time() << " segundos\n";
-	std::cout << "Palabras: " << player.words_typed << "\n";
-	std::cout << "WPM: " << get_wpm() << " \n";
-	std::cout << "Precision: " << accuracy << " %\n";
-	std::cout << "Errores: " << player.errors << " errores\n";
+	render.end(get_time(), player.words_typed, get_wpm(), accuracy, player.errors);
+	std::cin.get();
 }

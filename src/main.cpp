@@ -51,12 +51,14 @@ int main(){
 
 	Game game(player, render, term, mode_str, max);
 
+
 	game_point = &game;
 
 	std::signal(SIGINT, ctrlc_handler);
 
 	game.start();
-    game.end();
+	game.end();
+
 
     return 0;
 }
