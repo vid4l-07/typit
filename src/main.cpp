@@ -29,7 +29,7 @@ int main(){
 	}
 
 	std::vector<std::string> mode = {"time", "words"};
-	Menu menu_mode("Modo", mode, term);
+	Menu menu_mode("Mode", mode, term);
 	int mode_select = menu_mode.start();
 	char mode_str;
 

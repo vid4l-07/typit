@@ -33,7 +33,7 @@ class Terminal {  // mover aqui clear y ocultar cursor en clear
 	bool key_pressed(){
 		timeval tv; 
 		tv.tv_sec = 0;
-		tv.tv_usec = 5000;
+		tv.tv_usec = 0;  // delay
 		fd_set fds;
 		FD_ZERO(&fds);
 		FD_SET(STDIN_FILENO, &fds);
