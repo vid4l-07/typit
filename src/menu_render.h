@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "term.h"
+#include "terms/term.h"
 
 class Option{
 	public:

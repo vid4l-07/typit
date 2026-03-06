@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "term.h"
+#include "terms/term.h"
 #include "menu_render.h"
 
 class Menu{

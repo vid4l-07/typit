@@ -3,7 +3,7 @@
 #include "render.h"
 #include "player.h"
 #include "Game.h"
-#include "term.h"
+#include "terms/term.h"
 
 void Game::set_start_time(){
 	inicio = std::chrono::high_resolution_clock::now();

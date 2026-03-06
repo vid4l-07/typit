@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "player.h"
-#include "term.h"
+#include "terms/term.h"
 
 class Render{
 	private:

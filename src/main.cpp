@@ -4,7 +4,7 @@
 #include "player.h"
 #include "game.h"
 #include "render.h"
-#include "term.h"
+#include "terms/term.h"
 #include "menu.h"
 
 Game* game_point = nullptr;

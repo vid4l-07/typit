@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+#include <iostream>
 #include "menu_render.h"
 
 void Menu_render::center(int rows, int columns){

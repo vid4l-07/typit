@@ -10,6 +10,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Añadir todos los archivos fuente automáticamente
 file(GLOB SOURCES "src/*.cpp")
 
+if(WIN32)
+    list(APPEND SOURCES src/terms/term-windows.cpp)
+else()
+    list(APPEND SOURCES src/terms/term-linux.cpp)
+endif()
+
 # Crear el ejecutable
 add_executable(typit ${SOURCES})
 
