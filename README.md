@@ -1,10 +1,10 @@
-<div align = "center">
+<div align="center"
 
 # Typit
 
 ![C++](https://img.shields.io/badge/Language-C++-blue)
 
-Aplicacion de terminal en c++ diseñada para mejorar la velocidad de escritura. 
+C++ terminal application designed to improve typing speed.
 
 ![Typit Demo](./.github/screenshot.gif)
 
@@ -12,50 +12,51 @@ Aplicacion de terminal en c++ diseñada para mejorar la velocidad de escritura.
 
 ---
 
-## Funcionalidades
+## Features
 
-- Soporte para Windows y linux
-- Escritura en terminal con seguimiento de WPM (palabras por minuto) en tiempo real
-- Soporte en español e ingles
-- Generación de palabras aleatorias infinitas
-- Medición de errores y precisión
-- Modo contra reloj con palabras infinitas y modo con máximo de palabras
+- Support for Windows and Linux.
+- Terminal typing with real-time WPM (words per minute) tracking.
+- English and Spanish language support.
+- Infinite random word generation.
+- Error and accuracy measurement.
+- Time attack mode with infinite words and mode with a maximum number of words.
 
 ---
 
-## Instalación
+## Installation
 
-```bash
-# Igual para windows y linux
-# Clonar el repositorio
+``` bash
+# Same for Windows and Linux
+# Clone the repository
 git clone https://github.com/vid4l-07/typit.git
 cd typit
 
-# Compilar
+# Compile
 mkdir build
 cd build
 cmake ..
 cmake --build .
 
-# Ejecutar
+# Run
 ./typit
 ```
+
 ---
 
-## Uso
+## Usage
 
-En el menú:
-- Navegación con las flechas derecha e izquierda.
-- Modificar números como tiempo o palabras con flechas arriba y abajo.
-- Enter para continuar.
+In the menu: 
+- Navigate with the left and right arrow keys. 
+- Modify numbers such as time or words with the up and down arrows.
+- Press Enter to continue.
 
-Durante la partida:
-- Puedes borrar un máximo de 5 caracteres para corregir errores, pero estos no se restarán.
+During the game: 
+- You can delete up to 5 characters to correct mistakes, but these will not be subtracted.
 
-## Contribuciones
+## Contributions
 
-Las contribuciones son siempre bienvenidas! Si encuentras algún error o quieres contribuir en alguna mejora puedes:
-- Abrir un issue en este repositorio
-- Hacer un fork del repositorio
-- Abrir un Pull Request.
-- O mandarme un correo a <a href="mailto:h.vidal7@proton.me"> h.vidal7@proton.me </a>
+Contributions are always welcome! If you find a bug or want to contribute an improvement you can: 
+- Open an issue in this repository. 
+- Fork the repository. 
+- Open a Pull Request. 
+- Or send me an email at <a href="mailto:h.vidal7@proton.me"> h.vidal7@proton.me </a>
