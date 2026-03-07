@@ -1,17 +1,30 @@
 #pragma once
 #ifdef _WIN32
 #include <windows.h>
+enum Key{
+	KEY_MIN = 0,
+	KEY_UP = 72,
+	KEY_DOWN = 80,
+	KEY_RIGHT = 77,
+	KEY_LEFT = 75,
+	KEY_BACKSPACE = 8,
+	ENTER = 13
+};
 #else
 #include <termios.h>
-#endif
-
 enum Key{
+	KEY_MIN = 32,
 	KEY_UP = 65,
 	KEY_DOWN = 66,
 	KEY_RIGHT = 67,
-    KEY_LEFT = 68,
-    KEY_BACKSPACE = 127,
+	KEY_LEFT = 68,
+	KEY_BACKSPACE = 127,
+	ENTER = 10
 };
+#endif
+#undef min
+#undef max
+
 
 class Terminal { 
 	private:

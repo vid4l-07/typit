@@ -27,7 +27,7 @@ double Game::get_wpm(){
 }
 
 void Game::handle_input(char c){
-	if (c < 32) return;
+	if (c < KEY_MIN) return;
 	if (c == ' ') player.words_typed ++;
 
 	if (c == KEY_BACKSPACE){
@@ -64,6 +64,7 @@ void Game::main_loop_time(){
 		render.update(player);
 		render.stats(max - get_time(), get_wpm());
 	}
+	duration = get_time();
 }
 
 void Game::start() {

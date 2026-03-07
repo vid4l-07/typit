@@ -34,13 +34,6 @@ bool Terminal::key_pressed(){
 
 char Terminal::read_char(){
 	return getchar();
-	// char c = 0;  
-	// ssize_t n = read(STDIN_FILENO, &c, 1);
-	// if (n == 1) {
-	// 	return c;
-	// } else {
-	// 	return 0;
-	// }
 }
 
 void Terminal::clear(){

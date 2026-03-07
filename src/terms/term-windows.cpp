@@ -2,6 +2,8 @@
 #include <iostream>
 #include <conio.h>
 #include "term.h"
+#undef min
+#undef max
 
 Terminal::Terminal() {
 	hIn = GetStdHandle(STD_INPUT_HANDLE);
@@ -21,6 +23,7 @@ Terminal::Terminal() {
 	// activar soporte ANSI
 	DWORD newOutMode = oldOutMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
 	SetConsoleMode(hOut, newOutMode);
+    SetConsoleOutputCP(CP_UTF8);
 
 	std::cout << "\033[?25l"; // hide cursor
 }
@@ -37,7 +40,15 @@ bool Terminal::key_pressed(){
 }
 
 char Terminal::read_char(){
-	return _getch();
+	int c = _getch();
+
+	if (c == 0 || c == 224){
+
+		int arrow = _getch();
+		return arrow;
+	}
+
+	return (char)c;
 }
 
 void Terminal::clear(){

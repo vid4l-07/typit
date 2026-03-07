@@ -17,38 +17,34 @@ void Menu::select(bool direction){
 }
 
 bool Menu::handle_input(char c){
-	if (c == '\n'){
+	if (c == ENTER){
 		return false;
 	}
-	if (c == 27) {
-		term.read_char();
-		char dir = term.read_char();
 
-		if (mode == 0){
-			if (dir == KEY_RIGHT) {
-				select(true);
-			} 
-			else if (dir == KEY_LEFT) {
-				select(false);
-			}
-		} else {
-			if (dir == KEY_UP) {
-				if (current_selection < 60){
-					current_selection ++;
-				}
-			} 
-			else if (dir == KEY_DOWN) {
-				if (current_selection > 5){
-					current_selection --;
-				}
-			}
+	if (mode == 0){
+		if (c == KEY_RIGHT){
+			select(true);
+		}
+		else if (c == KEY_LEFT){
+			select(false);
 		}
 	}
+	else{
+		if (c == KEY_UP){
+			if (current_selection < 60)
+				current_selection++;
+		}
+		else if (c == KEY_DOWN){
+			if (current_selection > 5)
+				current_selection--;
+		}
+	} 
 	return true;
 }
 
 
 int Menu::start(){
+	term.clear();
 	bool runing = true;
 	if (mode == 0){
 		menu_render.render_options(title, options);

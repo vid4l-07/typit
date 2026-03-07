@@ -4,7 +4,7 @@
 
 ![C++](https://img.shields.io/badge/Language-C++-blue)
 
-Aplicacion de terminal en c++ para linux diseñada para mejorar la velocidad de escritura. 
+Aplicacion de terminal en c++ diseñada para mejorar la velocidad de escritura. 
 
 ![Typit Demo](./.github/screenshot.gif)
 
@@ -14,6 +14,7 @@ Aplicacion de terminal en c++ para linux diseñada para mejorar la velocidad de 
 
 ## Funcionalidades
 
+- Soporte para Windows y linux
 - Escritura en terminal con seguimiento de WPM (palabras por minuto) en tiempo real
 - Soporte en español e ingles
 - Generación de palabras aleatorias infinitas
@@ -25,6 +26,7 @@ Aplicacion de terminal en c++ para linux diseñada para mejorar la velocidad de 
 ## Instalación
 
 ```bash
+# Igual para windows y linux
 # Clonar el repositorio
 git clone https://github.com/vid4l-07/typit.git
 cd typit
@@ -33,7 +35,7 @@ cd typit
 mkdir build
 cd build
 cmake ..
-make
+cmake --build .
 
 # Ejecutar
 ./typit

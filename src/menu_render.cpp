@@ -104,14 +104,12 @@ void Menu_render::gen_border(){
 }
 
 void Menu_render::render_options(const std::string& title, const std::vector<Option>& options){
-	term.clear();
 	draw_border();
 	draw_title(title);
 	draw_options(options);
 }
 
 void Menu_render::render_number(const std::string& title, int selection){
-	term.clear();
 	draw_border();
 	draw_title(title);
 	draw_number(selection);
