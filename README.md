@@ -2,11 +2,9 @@
 
 # Typit
 
-![C++](https://img.shields.io/badge/Language-C++-blue)
-
 C++ terminal typing speed tester for windows and linux.
 
-![Typit Demo](./.github/screenshot.gif)
+<img src=".github/screenshot.gif" alt="descripcion"  width="600">
 
 </div>
 
